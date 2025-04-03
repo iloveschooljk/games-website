@@ -25,7 +25,7 @@ for (let i = 0; i < numNeurons; i++) {
         element: neuron,
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        speed: Math.random() * 2 + 0.5
+        speed: 0  // Speed set to 0 to stop the neurons from floating
     });
 }
 
@@ -49,19 +49,9 @@ document.addEventListener('mousemove', (e) => {
             neuron.y += repelY;
         }
 
-        // Update the position of each neuron
+        // Update the position of each neuron (only from repel effect)
         neuron.element.style.left = `${neuron.x}px`;
         neuron.element.style.top = `${neuron.y}px`;
-
-        // Randomly move neurons to keep them floating around
-        neuron.x += Math.random() * neuron.speed - neuron.speed / 2;
-        neuron.y += Math.random() * neuron.speed - neuron.speed / 2;
-
-        // Ensure the neuron stays within bounds
-        if (neuron.x < 0) neuron.x = 0;
-        if (neuron.y < 0) neuron.y = 0;
-        if (neuron.x > window.innerWidth) neuron.x = window.innerWidth;
-        if (neuron.y > window.innerHeight) neuron.y = window.innerHeight;
     });
 });
 
