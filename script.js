@@ -1,5 +1,8 @@
 document.querySelector(".cloaker").addEventListener("click", function() {
-    alert("Cloaker feature coming soon!");
+    let newTitle = prompt("Enter a new tab name:");
+    if (newTitle) {
+        document.title = newTitle;
+    }
 });
 
 function openGame(game) {
