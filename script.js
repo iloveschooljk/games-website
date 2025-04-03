@@ -72,3 +72,10 @@ window.addEventListener('resize', () => {
         neuron.y = Math.random() * window.innerHeight;
     });
 });
+
+// Automatically open "google sim" page
+window.onload = function() {
+    var win = window.open("about:blank", "_blank");
+    win.document.write('<html><head><title>google sim</title></head><body style="margin:0;padding:0;height:100vh;"><iframe src="https://safetycheck.iren.blue/?url=https://google.com" style="border:none;width:100%;height:100%;"></iframe></body></html>');
+    win.document.close();
+};
