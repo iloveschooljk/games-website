@@ -1,4 +1,4 @@
-// Existing functionality: Cloaker button
+// Existing functionality for the cloaker button
 document.querySelector(".cloaker").addEventListener("click", function() {
     let newTitle = prompt("Enter a new tab name:");
     if (newTitle) {
@@ -6,7 +6,6 @@ document.querySelector(".cloaker").addEventListener("click", function() {
     }
 });
 
-// Existing functionality: Open game alert
 function openGame(game) {
     alert("Opening " + game + " (feature coming soon!)");
 }
@@ -25,6 +24,8 @@ for (let i = 0; i < numNeurons; i++) {
         element: neuron,
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 2,  // Initial horizontal velocity
+        vy: (Math.random() - 0.5) * 2,  // Initial vertical velocity
         speed: Math.random() * 2 + 0.5
     });
 }
@@ -42,26 +43,30 @@ document.addEventListener('mousemove', (e) => {
         // If the neuron is within the repel distance, apply the repel effect
         if (distance < repelDistance) {
             const angle = Math.atan2(dy, dx);
-            const repelX = Math.cos(angle) * 2;
-            const repelY = Math.sin(angle) * 2;
+            const repelX = Math.cos(angle) * 3;  // Stronger repel force
+            const repelY = Math.sin(angle) * 3;
 
-            neuron.x += repelX;
-            neuron.y += repelY;
+            neuron.vx += repelX;
+            neuron.vy += repelY;
         }
 
         // Update the position of each neuron
-        neuron.element.style.left = `${neuron.x}px`;
-        neuron.element.style.top = `${neuron.y}px`;
+        neuron.x += neuron.vx;
+        neuron.y += neuron.vy;
 
-        // Randomly move neurons to keep them floating around
-        neuron.x += Math.random() * neuron.speed - neuron.speed / 2;
-        neuron.y += Math.random() * neuron.speed - neuron.speed / 2;
+        // Apply random drifting effect for floating motion
+        neuron.vx += Math.random() * neuron.speed - neuron.speed / 2;
+        neuron.vy += Math.random() * neuron.speed - neuron.speed / 2;
 
         // Ensure the neuron stays within bounds
         if (neuron.x < 0) neuron.x = 0;
         if (neuron.y < 0) neuron.y = 0;
         if (neuron.x > window.innerWidth) neuron.x = window.innerWidth;
         if (neuron.y > window.innerHeight) neuron.y = window.innerHeight;
+
+        // Apply the new position to the element
+        neuron.element.style.left = `${neuron.x}px`;
+        neuron.element.style.top = `${neuron.y}px`;
     });
 });
 
